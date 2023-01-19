@@ -870,8 +870,12 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             elif (int(myObjRed.value()) < int(myObjBlue.value())):
                 self.bluePoints += 1
             else:
-                self.bluePoints += 1
                 self.redPoints += 1
+                self.bluePoints += 1
+        if ("Main" in dir(self)):
+            myProgressVal = int((float(self.redPoints)/( float(self.redPoints) +  float(self.bluePoints)))*100)
+            self.Main.progressBar.setValue(myProgressVal)
+
 
 
 
