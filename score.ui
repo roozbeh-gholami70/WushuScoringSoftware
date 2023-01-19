@@ -577,39 +577,6 @@
              <enum>QFrame::Raised</enum>
             </property>
             <layout class="QGridLayout" name="gridLayout_3">
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_9">
-               <property name="font">
-                <font>
-                 <pointsize>25</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>راند</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="roundNumLbl">
-               <property name="font">
-                <font>
-                 <pointsize>34</pointsize>
-                </font>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="0" colspan="2">
               <widget class="QFrame" name="frame_31">
                <property name="minimumSize">
@@ -692,6 +659,58 @@
                  </widget>
                 </item>
                </layout>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="roundNumLbl">
+               <property name="font">
+                <font>
+                 <pointsize>34</pointsize>
+                </font>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_9">
+               <property name="font">
+                <font>
+                 <pointsize>25</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>راند</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="2">
+              <widget class="QProgressBar" name="progressBar">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="value">
+                <number>50</number>
+               </property>
+               <property name="textVisible">
+                <bool>false</bool>
+               </property>
+               <property name="format">
+                <string/>
+               </property>
               </widget>
              </item>
             </layout>
