@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="ui_files">
+    <file>MainWindowReferee.ui</file>
+    <file>score.ui</file>
+  </qresource>
+</RCC>
