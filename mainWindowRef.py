@@ -886,15 +886,18 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
 
     def loadCsvFile(self):
-        path = self.getfile()
-        if (path!=""):
-            self.openExcelPandas(path)
-            self.gameNumCbx.clear()            
-            self.gameNumCbx.addItems(map(str, self.matchData.keys()))
-            self.gameNum = self.gameNumCbx.currentText()
-            self.setGameNum()
+        if ("Main" not in dir(self)):
+            QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
         else:
-            pass
+            path = self.getfile()
+            if (path!=""):
+                self.openExcelPandas(path)
+                self.gameNumCbx.clear()            
+                self.gameNumCbx.addItems(map(str, self.matchData.keys()))
+                self.gameNum = self.gameNumCbx.currentText()
+                self.setGameNum()
+            else:
+                pass
 
     def openExcelPandas(self, path):
         df = pd.read_excel(path)
