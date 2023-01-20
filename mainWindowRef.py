@@ -977,6 +977,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion')
     Ui =  MainWindow()
     Ui.show()
     sys.exit(app.exec_())

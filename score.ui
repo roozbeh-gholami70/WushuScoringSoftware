@@ -21,7 +21,9 @@
     <item>
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(149, 98, 98);</string>
+       <string notr="true">QFrame{border: none;
+background-color: rgb(149, 98, 98);
+}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>

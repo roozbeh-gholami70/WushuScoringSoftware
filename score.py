@@ -180,6 +180,7 @@ class Main (QMainWindow, loadUiClass(':/ui_files/score.ui')):
 if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion')
     Ui =  Main()
     Ui.show()
     sys.exit(app.exec_())
