@@ -2502,7 +2502,8 @@ p, li { white-space: pre-wrap; }
                    </property>
                    <property name="styleSheet">
                     <string notr="true">color: white;
-background:rgb(255, 0, 0);</string>
+background:rgb(255, 0, 0);
+border: 1px solid black;</string>
                    </property>
                    <property name="text">
                     <string>قرمز</string>
@@ -2775,7 +2776,8 @@ background:rgb(255, 0, 0);</string>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">color: white;
-background:rgb(0, 0, 255);</string>
+background:rgb(0, 0, 255);
+border: 1px solid black;</string>
                    </property>
                    <property name="text">
                     <string>آبی</string>
@@ -3180,17 +3182,27 @@ background:rgb(0, 0, 255);</string>
                  </item>
                  <item row="0" column="5" rowspan="6">
                   <widget class="Line" name="line">
+                   <property name="minimumSize">
+                    <size>
+                     <width>1</width>
+                     <height>20</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
                      <weight>50</weight>
                      <bold>false</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color:black;
+background-color:black;</string>
+                   </property>
                    <property name="lineWidth">
                     <number>1</number>
                    </property>
                    <property name="midLineWidth">
-                    <number>30</number>
+                    <number>1</number>
                    </property>
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
@@ -3302,7 +3314,7 @@ background:rgb(0, 0, 255);</string>
                  <string notr="true">QComboBox QAbstractItemView
 {
   selection-color: red;
-  selection-background-color: blue;
+  selection-background-color: rgb(244, 244, 244);
 }</string>
                 </property>
                </widget>

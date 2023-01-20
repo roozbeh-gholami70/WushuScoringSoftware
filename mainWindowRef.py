@@ -18,9 +18,11 @@ from score import  Main
 
 import openpyxl 
 from openpyxl.styles import PatternFill
+import pandas as pd
 
 import sys
 import os
+import copy
 
 
 def loadUiClass(path):
@@ -116,8 +118,11 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.round2Rbtn.clicked.connect(lambda:self.radioBtnState(self.round2Rbtn))
         self.round3Rbtn.clicked.connect(lambda:self.radioBtnState(self.round3Rbtn))
 
-        
-        
+        self.loadCsvBtn.clicked.connect(lambda: self.loadCsvFile())
+
+        self.gameNumCbx.setStyleSheet("QComboBox QAbstractItemView { \
+                                        selection-color: red; \
+                                        selection-background-color: rgb(244, 244, 244);}")
         self.setSpinBoxReadOnly()
         
         self.round1Rbtn.setChecked(True)
@@ -364,9 +369,11 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         if ("Main" not in dir(self)):
             QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
         else:
-            
-            self.Main.redPlayerNameTxt.insertPlainText(self.redPlayer)
-            self.Main.bluePlayerNameTxt.insertPlainText(self.bluePlayer)
+            self.Main.redPlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["red"])
+            self.Main.bluePlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["blue"])
+            self.weightTxt.setPlainText(self.matchData[str(self.gameNum)]["weight"])
+            # self.Main.redPlayerNameTxt.insertPlainText(self.redPlayer)
+            # self.Main.bluePlayerNameTxt.insertPlainText(self.bluePlayer)
     
     def setWeight(self):
         self.playerWeight = self.weightTxt.toPlainText()
@@ -392,8 +399,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                 pass
             self.gameNum = self.gameNumCbx.currentText()
             self.Main.gameNumTxt.setHtml("<p align='center'>" + str(self.gameNum) + "</p>")
-
-            
+            self.setPlayerName()
+    
     def saveToCsv(self):
         if (self.gameNum!=""):
             try:
@@ -878,6 +885,52 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
 
 
+    def loadCsvFile(self):
+        path = self.getfile()
+        if (path!=""):
+            self.openExcelPandas(path)
+            self.gameNumCbx.clear()            
+            self.gameNumCbx.addItems(map(str, self.matchData.keys()))
+            self.gameNum = self.gameNumCbx.currentText()
+            self.setGameNum()
+        else:
+            pass
+
+    def openExcelPandas(self, path):
+        df = pd.read_excel(path)
+        self.matchData = {}
+        
+        for idx, item in df.iterrows():
+            tmp = {}
+            tmp["red"] = copy.deepcopy(item["قرمز"])
+            tmp["blue"] = copy.deepcopy(item["آبی"])
+            tmp["weight"] = copy.deepcopy(str(item["وزن"]))
+            self.matchData[str(item["شماره مسابقه"])] = copy.deepcopy(tmp)
+        
+        
+
+    def open_workbook(self, path):
+        workbook = openpyxl.load_workbook(filename=path)
+        print(f"Worksheet names: {workbook.sheetnames}")
+        sheet = workbook.active
+        print(f"The title of the Worksheet is: {sheet.title}")
+        print(f"Cells that contain data: {sheet.calculate_dimension()}")
+        for row in sheet.rows:
+            for cell in row:
+                if isinstance(cell, openpyxl.cell.cell.MergedCell):
+                    # Skip this cell
+                    continue
+                print(f"{cell.column_letter}{cell.row} = {cell.value}")
+
+    def getfile(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        fname = QFileDialog.getOpenFileName(self, 'Open file', 
+         dir_path,"Excel files (*.csv *.XLSX)")
+        if (fname[0]!= ""):
+            fname = fname[0].replace("/","\\")
+            return(fname)
+        else:
+            return("")
 
     def _getserial_ports(self):
         ports = QtSerialPort.QSerialPortInfo.availablePorts()
