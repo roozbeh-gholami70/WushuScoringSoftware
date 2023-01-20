@@ -1,3 +1,10 @@
 # created by virtualenv automatically
+/__pycache__/
 __pycache__/
 __pycache__/resources_rc.cpython-310.pyc
+/dist/
+dist/
+/build/
+build/
+*.msi
+*.exe

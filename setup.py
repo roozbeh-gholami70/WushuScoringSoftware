@@ -2,7 +2,7 @@ import sys
 
 from cx_Freeze import setup, Executable
 
-# command line python setup.py bdist_msi
+# command line python setup.py python setup.py bdist_msi --help
 
 company_name = "AminCom"
 product_name = "Wushu Scoring Software"
