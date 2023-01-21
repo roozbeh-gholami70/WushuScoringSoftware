@@ -360,15 +360,15 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             try:
                 self.matchData
             except:
+                self.Main.redPlayerNameTxt.setPlainText(self.redPlayer)
+                self.Main.bluePlayerNameTxt.setPlainText(self.bluePlayer)
                 pass
             else:
                 isExcelUploaded = True
                 self.Main.redPlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["red"])
                 self.Main.bluePlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["blue"])
                 self.weightTxt.setPlainText(self.matchData[str(self.gameNum)]["weight"])
-            if (~isExcelUploaded):
-                self.Main.redPlayerNameTxt.insertPlainText(self.redPlayer)
-                self.Main.bluePlayerNameTxt.insertPlainText(self.bluePlayer)
+                
         
             
     
