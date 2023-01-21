@@ -183,112 +183,104 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         modifiers = QtWidgets.QApplication.keyboardModifiers()
       
         if e.modifiers() & Qt.ControlModifier:
-            if ("Main" not in dir(self)):
-                QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
-            else:
-                if e.key() == Qt.Key_7:
-                    myObj = eval("self.red"+str(self.roundNum)+"_1spinBox")
-                    if (int(myObj.value())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp)         
+            if e.key() == Qt.Key_7:
+                myObj = eval("self.red"+str(self.roundNum)+"_1spinBox")
+                if (int(myObj.value())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp)         
 
-                if e.key() == Qt.Key_4:
-                    myObj = eval("self.red"+str(self.roundNum)+"_2spinBox")
-                    if (int(myObj.text())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp)    
-                
-                if e.key() == Qt.Key_1:
-                    myObj = eval("self.red"+str(self.roundNum)+"_3spinBox")
-                    if (int(myObj.text())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp)    
-                if e.key() == Qt.Key_0:
-                    myObj = eval("self.red"+str(self.roundNum)+"_4spinBox")
-                    if (int(myObj.text())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp)                           
+            if e.key() == Qt.Key_4:
+                myObj = eval("self.red"+str(self.roundNum)+"_2spinBox")
+                if (int(myObj.text())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp)    
+            
+            if e.key() == Qt.Key_1:
+                myObj = eval("self.red"+str(self.roundNum)+"_3spinBox")
+                if (int(myObj.text())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp)    
+            if e.key() == Qt.Key_0:
+                myObj = eval("self.red"+str(self.roundNum)+"_4spinBox")
+                if (int(myObj.text())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp)                           
 
-                if e.key() == Qt.Key_9:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_1spinBox")
-                    if (int(myObj.text())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp)    
+            if e.key() == Qt.Key_9:
+                myObj = eval("self.blue"+str(self.roundNum)+"_1spinBox")
+                if (int(myObj.text())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp)    
 
-                if e.key() == Qt.Key_6:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_2spinBox")
-                    if (int(myObj.text())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp)
-                
-                if e.key() == Qt.Key_3:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_3spinBox")
-                    if (int(myObj.text())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp) 
-                if e.key() == Qt.Key_Period:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_4spinBox")
-                    if (int(myObj.text())>0):
-                        tmp = int(myObj.value()) - 1
-                        myObj.setValue(tmp) 
+            if e.key() == Qt.Key_6:
+                myObj = eval("self.blue"+str(self.roundNum)+"_2spinBox")
+                if (int(myObj.text())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp)
+            
+            if e.key() == Qt.Key_3:
+                myObj = eval("self.blue"+str(self.roundNum)+"_3spinBox")
+                if (int(myObj.text())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp) 
+            if e.key() == Qt.Key_Period:
+                myObj = eval("self.blue"+str(self.roundNum)+"_4spinBox")
+                if (int(myObj.text())>0):
+                    tmp = int(myObj.value()) - 1
+                    myObj.setValue(tmp) 
         else:
-            if ("Main" not in dir(self)):
-                QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
-            else:
-                if e.key() == Qt.Key_F1:
-                    if (self.pushButton_2.isEnabled()):
-                        self.start1()
-                    elif ((self.pushButton_3.isEnabled()) & (self.count != 0)):
-                        self.puse()
+            if e.key() == Qt.Key_F1:
+                if (self.pushButton_2.isEnabled()):
+                    self.start1()
+                elif ((self.pushButton_3.isEnabled()) & (self.count != 0)):
+                    self.puse()
 
-                if e.key() == Qt.Key_7:
-                    myObj = eval("self.red"+str(self.roundNum)+"_1spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp)        
+            if e.key() == Qt.Key_7:
+                myObj = eval("self.red"+str(self.roundNum)+"_1spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp)        
 
-                if e.key() == Qt.Key_4:
-                    myObj = eval("self.red"+str(self.roundNum)+"_2spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp) 
+            if e.key() == Qt.Key_4:
+                myObj = eval("self.red"+str(self.roundNum)+"_2spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp) 
+            
+            if e.key() == Qt.Key_1:
+                myObj = eval("self.red"+str(self.roundNum)+"_3spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp) 
                 
-                if e.key() == Qt.Key_1:
-                    myObj = eval("self.red"+str(self.roundNum)+"_3spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp) 
-                 
-                if e.key() == Qt.Key_0:
-                    myObj = eval("self.red"+str(self.roundNum)+"_4spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp) 
+            if e.key() == Qt.Key_0:
+                myObj = eval("self.red"+str(self.roundNum)+"_4spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp) 
 
-                if e.key() == Qt.Key_9:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_1spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp) 
+            if e.key() == Qt.Key_9:
+                myObj = eval("self.blue"+str(self.roundNum)+"_1spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp) 
 
-                if e.key() == Qt.Key_6:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_2spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp) 
-                
-                if e.key() == Qt.Key_3:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_3spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp) 
-                
-                if e.key() == Qt.Key_Period:
-                    myObj = eval("self.blue"+str(self.roundNum)+"_4spinBox")
-                    tmp = int(myObj.value()) + 1
-                    myObj.setValue(tmp)  
+            if e.key() == Qt.Key_6:
+                myObj = eval("self.blue"+str(self.roundNum)+"_2spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp) 
+            
+            if e.key() == Qt.Key_3:
+                myObj = eval("self.blue"+str(self.roundNum)+"_3spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp) 
+            
+            if e.key() == Qt.Key_Period:
+                myObj = eval("self.blue"+str(self.roundNum)+"_4spinBox")
+                tmp = int(myObj.value()) + 1
+                myObj.setValue(tmp)  
 
         
     def takePlayerNames(self):
         self.redPlayerData = {}
         self.bluePlayerData = {}
 
-        if ("Main" not in dir(self)):
-            QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
-        elif (self.numOfMatches == 0):
+        if (self.numOfMatches == 0):
             QMessageBox.about(self, "اخطار", "لطفا تعداد مسابقات را مشخص کنید.")
         else:
             redPlayerName, done1 = QtWidgets.QInputDialog.getText(
@@ -316,26 +308,23 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                     self.takePlayerNames()
     
     def getMatchSettings(self):
-        if ("Main" not in dir(self)):
-            QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
-        else:
-            numOfMatches, done1 = QtWidgets.QInputDialog.getText(
-                self, '  تعداد مسابقات', 'تعداد مسابقه: ')
-            if done1:
-                msgBoxTopic = "تعداد مسابقات"
-                msgBoxQuestion = " تعداد مسابقه: "+ numOfMatches + "\n"
-                buttonReply = QMessageBox.question(self,msgBoxTopic ,msgBoxQuestion , QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-                if buttonReply == QMessageBox.Yes:
-                    self.numOfMatches = int(numOfMatches)
-                    self.myDataTable = ["0"]*int(numOfMatches)
-                    
-                    self.gameNumCbx.clear()
-                    items  = list(range(1, int(numOfMatches)+1))
-                    self.gameNumCbx.addItems(map(str, items))
-                    self.gameNum = self.gameNumCbx.currentText()
-                    self.setGameNum()
-                else:
-                    self.getMatchSettings()
+        numOfMatches, done1 = QtWidgets.QInputDialog.getText(
+            self, '  تعداد مسابقات', 'تعداد مسابقه: ')
+        if done1:
+            msgBoxTopic = "تعداد مسابقات"
+            msgBoxQuestion = " تعداد مسابقه: "+ numOfMatches + "\n"
+            buttonReply = QMessageBox.question(self,msgBoxTopic ,msgBoxQuestion , QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+            if buttonReply == QMessageBox.Yes:
+                self.numOfMatches = int(numOfMatches)
+                self.myDataTable = ["0"]*int(numOfMatches)
+                
+                self.gameNumCbx.clear()
+                items  = list(range(1, int(numOfMatches)+1))
+                self.gameNumCbx.addItems(map(str, items))
+                self.gameNum = self.gameNumCbx.currentText()
+                self.setGameNum()
+            else:
+                self.getMatchSettings()
 
 
     def setTable(self):
@@ -366,38 +355,43 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                 myObj.setValue(int(self.bluePlayerTablePoint[str(self.roundNum)][idx]))               
 
     def setPlayerName(self):
-        if ("Main" not in dir(self)):
-            QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
-        else:
-            self.Main.redPlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["red"])
-            self.Main.bluePlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["blue"])
-            self.weightTxt.setPlainText(self.matchData[str(self.gameNum)]["weight"])
-            # self.Main.redPlayerNameTxt.insertPlainText(self.redPlayer)
-            # self.Main.bluePlayerNameTxt.insertPlainText(self.bluePlayer)
+        isExcelUploaded = False
+        if ("Main" in dir(self)):
+            try:
+                self.matchData
+            except:
+                pass
+            else:
+                isExcelUploaded = True
+                self.Main.redPlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["red"])
+                self.Main.bluePlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["blue"])
+                self.weightTxt.setPlainText(self.matchData[str(self.gameNum)]["weight"])
+            if (~isExcelUploaded):
+                self.Main.redPlayerNameTxt.insertPlainText(self.redPlayer)
+                self.Main.bluePlayerNameTxt.insertPlainText(self.bluePlayer)
+        
+            
     
     def setWeight(self):
         self.playerWeight = self.weightTxt.toPlainText()
-        if ("Main" not in dir(self)):
-            QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
-        else:
+        try:
+            self.redPlayerData["weight"] = str(self.playerWeight)
+            self.bluePlayerData["weight"] = str(self.playerWeight)
+        except:
+            pass
+        if ("Main" in dir(self)):
             self.Main.weightLbl.setText(str(self.playerWeight))
-            try:
-                self.redPlayerData["weight"] = str(self.playerWeight)
-                self.bluePlayerData["weight"] = str(self.playerWeight)
-            except:
-                pass
+           
     
     def setGameNum(self):
-        
-        if ("Main" not in dir(self)):
-            QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
-        else:
-            try:
-                self.redPlayerData["matchNum"] = str(self.gameNum)
-                self.bluePlayerData["matchNum"] = str(self.gameNum)
-            except:
-                pass
-            self.gameNum = self.gameNumCbx.currentText()
+        self.gameNum = self.gameNumCbx.currentText()
+        try:
+            self.redPlayerData["matchNum"] = str(self.gameNum)
+            self.bluePlayerData["matchNum"] = str(self.gameNum)
+            
+        except:
+            pass
+        if ("Main" in dir(self)):
             self.Main.gameNumTxt.setHtml("<p align='center'>" + str(self.gameNum) + "</p>")
             self.setPlayerName()
     
@@ -484,16 +478,17 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         
         self.label_14.setText("{:02d}".format(self.mints))
         self.label_16.setText("{:02d}".format( self.scnd))
-        
-        self.Main.label_3.setText("{:02d}".format(self.mints))
-        self.Main.label_5.setText("{:02d}".format( self.scnd))
+        if ("Main" in dir(self)):
+            self.Main.label_3.setText("{:02d}".format(self.mints))
+            self.Main.label_5.setText("{:02d}".format( self.scnd))
     
     def updateTimer(self):
+        
         self.label_2.setText("{:02d}".format(self.mints))
         self.label_8.setText("{:02d}".format( self.scnd))
-        
-        self.Main.label_3.setText("{:02d}".format( self.mints))
-        self.Main.label_5.setText("{:02d}".format(self.scnd))
+        if ("Main" in dir(self)):
+            self.Main.label_3.setText("{:02d}".format( self.mints))
+            self.Main.label_5.setText("{:02d}".format(self.scnd))
 
     def setTimer(self):
         self.start = False
@@ -687,6 +682,11 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         else:
             # opening the second window
             self.Main = Main() # same as the second window class name
+            try:
+                self.setGameNum()
+                self.weightTxt.setPlainText(self.matchData[str(self.gameNum)]["weight"])
+            except:
+                pass
         
         
         self.Main.roundNumLbl.setText(str(self.roundNum))
@@ -886,18 +886,15 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
 
     def loadCsvFile(self):
-        if ("Main" not in dir(self)):
-            QMessageBox.about(self, "اخطار", "لطفا اسکوربورد را باز کنید.")
+        path = self.getfile()
+        if (path!=""):
+            self.openExcelPandas(path)
+            self.gameNumCbx.clear()            
+            self.gameNumCbx.addItems(map(str, self.matchData.keys()))
+            self.gameNum = self.gameNumCbx.currentText()
+            self.setGameNum()
         else:
-            path = self.getfile()
-            if (path!=""):
-                self.openExcelPandas(path)
-                self.gameNumCbx.clear()            
-                self.gameNumCbx.addItems(map(str, self.matchData.keys()))
-                self.gameNum = self.gameNumCbx.currentText()
-                self.setGameNum()
-            else:
-                pass
+            pass
 
     def openExcelPandas(self, path):
         df = pd.read_excel(path)
