@@ -2467,7 +2467,7 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item row="2" column="8">
-                  <widget class="QSpinBox" name="red2_1spinBox">
+                  <widget class="QSpinBox" name="blue3_1spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2613,7 +2613,7 @@ border: 1px solid black;</string>
                   </widget>
                  </item>
                  <item row="2" column="7">
-                  <widget class="QSpinBox" name="blue1_1spinBox">
+                  <widget class="QSpinBox" name="blue2_1spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2676,7 +2676,7 @@ border: 1px solid black;</string>
                   </widget>
                  </item>
                  <item row="2" column="6">
-                  <widget class="QSpinBox" name="blue2_1spinBox">
+                  <widget class="QSpinBox" name="blue1_1spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2697,7 +2697,7 @@ border: 1px solid black;</string>
                   </widget>
                  </item>
                  <item row="2" column="3">
-                  <widget class="QSpinBox" name="blue3_1spinBox">
+                  <widget class="QSpinBox" name="red2_1spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>

@@ -50,7 +50,6 @@ alphabetList = list(string.ascii_uppercase)
 class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
     def __init__(self):
         super( MainWindow, self).__init__()
-        # uic.loadUi(Ui_Class, self)
         
         self.setupUi(self)
         self.show()
@@ -359,12 +358,21 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         if ("Main" in dir(self)):
             try:
                 self.matchData
+                self.redPlayerData = {}
+                self.bluePlayerData = {}
             except:
                 self.Main.redPlayerNameTxt.setPlainText(self.redPlayer)
                 self.Main.bluePlayerNameTxt.setPlainText(self.bluePlayer)
                 pass
             else:
                 isExcelUploaded = True
+                self.redPlayerData["name"] = self.matchData[str(self.gameNum)]["red"]
+                self.bluePlayerData["name"] = self.matchData[str(self.gameNum)]["blue"]
+                self.redPlayerData["weight"] = str(self.playerWeight)
+                self.bluePlayerData["weight"] = str(self.playerWeight)
+                self.redPlayerData["matchNum"] = str(self.gameNum)
+                self.bluePlayerData["matchNum"] = str(self.gameNum)
+
                 self.Main.redPlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["red"])
                 self.Main.bluePlayerNameTxt.setPlainText(self.matchData[str(self.gameNum)]["blue"])
                 self.weightTxt.setPlainText(self.matchData[str(self.gameNum)]["weight"])
@@ -437,6 +445,9 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         blue_cell = PatternFill(patternType='solid', fgColor='0163FB')
         self.workSheet['B1'] = str(self.redPlayerData["name"])
         self.workSheet['E1'] = str(self.bluePlayerData["name"])
+
+        # self.workSheet['B1'] = str(self.matchData[str(self.gameNum)]["red"])
+        # self.workSheet['E1'] = str(self.matchData[str(self.gameNum)]["blue"])
         try:
             for idx,item in enumerate(alphabetList[1:7]):
                 self.workSheet[item+"2"] = "راند" + str((idx%3)+1)
@@ -463,11 +474,11 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             for randIdx in range(3):
                 for idx in range(3, len(tableFirstColList)+3):
                     if (idx < 8):
-                        self.workSheet[alphabetList[randIdx+1]+str(idx)] = self.redPlayerRefsPoint["1"][idx-3]
-                        self.workSheet[alphabetList[randIdx+4]+str(idx)] = self.bluePlayerRefsPoint["1"][idx-3]
+                        self.workSheet[alphabetList[randIdx+1]+str(idx)] = self.redPlayerRefsPoint[str(randIdx+1)][idx-3]
+                        self.workSheet[alphabetList[randIdx+4]+str(idx)] = self.bluePlayerRefsPoint[str(randIdx+1)][idx-3]
                     else:
-                        self.workSheet[alphabetList[randIdx+1]+str(idx)] = self.redPlayerTablePoint["1"][idx-8]
-                        self.workSheet[alphabetList[randIdx+4]+str(idx)] = self.bluePlayerTablePoint["1"][idx-8] 
+                        self.workSheet[alphabetList[randIdx+1]+str(idx)] = self.redPlayerTablePoint[str(randIdx+1)][idx-8]
+                        self.workSheet[alphabetList[randIdx+4]+str(idx)] = self.bluePlayerTablePoint[str(randIdx+1)][idx-8] 
                     self.workSheet[alphabetList[randIdx+1]+str(idx)].fill = red_cell
                     self.workSheet[alphabetList[randIdx+4]+str(idx)].fill = blue_cell
         except Exception as e:
