@@ -122,7 +122,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.gameNumCbx.setStyleSheet("QComboBox QAbstractItemView { \
                                         selection-color: red; \
                                         selection-background-color: rgb(244, 244, 244);}")
-        self.setSpinBoxReadOnly()
+        
         
         self.round1Rbtn.setChecked(True)
         self.second = 0
@@ -153,7 +153,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.redPlayerTablePoint = {"1":[0,0,0,0], "2":[0,0,0,0], "3":[0,0,0,0]}
         self.bluePlayerTablePoint = {"1":[0,0,0,0], "2":[0,0,0,0], "3":[0,0,0,0]}
         # my part start
-
+        self.setSpinBoxReadOnly()
         timer = QTimer(self)
         # adding action to timer
         timer.timeout.connect(self.showTime)
@@ -175,6 +175,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
                 myObj = eval("self.blue"+str(roundNum)+"_"+str(idx+1) + "spinBox")
                 myObj.lineEdit().setReadOnly(True)
+        self.makeDisableEnable()
+
                 
         
     def keyPressEvent(self, e):
@@ -332,11 +334,27 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             if isinstance(item,QSpinBox):
                 item.setValue(0)
 
+    def makeDisableEnable(self):
+        roundsSet = set(["1","2","3"])-set(str(self.roundNum))
+        for idx in range(4):
+            for randIdx in roundsSet:
+                myObj = eval("self.red"+str(randIdx)+"_"+str(idx+1) + "spinBox")
+                myObj.setEnabled(False)
+
+                myObj = eval("self.blue"+str(randIdx)+"_"+str(idx+1) + "spinBox")
+                myObj.setEnabled(False)
+            myObj = eval("self.red"+str(self.roundNum)+"_"+str(idx+1) + "spinBox")
+            myObj.setEnabled(True)
+
+            myObj = eval("self.blue"+str(self.roundNum)+"_"+str(idx+1) + "spinBox")
+            myObj.setEnabled(True)
+
     def radioBtnState(self,myBtn):
         self.storeTableData()
         self.calcPoints()
         if myBtn.isChecked() == True:
             self.roundNum = int(str(myBtn.objectName())[5])
+            self.makeDisableEnable()
             if ("Main" in dir(self)):
                 self.Main.roundNumLbl.setText(str(self.roundNum))
 
@@ -351,7 +369,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                 myObj.setValue(int(self.redPlayerTablePoint[str(self.roundNum)][idx]))
 
                 myObj = eval("self.blue"+str(self.roundNum)+"_"+str(idx+1) + "spinBox")
-                myObj.setValue(int(self.bluePlayerTablePoint[str(self.roundNum)][idx]))               
+                myObj.setValue(int(self.bluePlayerTablePoint[str(self.roundNum)][idx]))  
 
     def setPlayerName(self):
         isExcelUploaded = False
