@@ -688,6 +688,9 @@ background-color: rgb(149, 98, 98);
                  <pointsize>25</pointsize>
                 </font>
                </property>
+               <property name="locale">
+                <locale language="Persian" country="Iran"/>
+               </property>
                <property name="text">
                 <string>راند</string>
                </property>

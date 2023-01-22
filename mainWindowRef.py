@@ -50,7 +50,10 @@ alphabetList = list(string.ascii_uppercase)
 class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
     def __init__(self):
         super( MainWindow, self).__init__()
-        
+        id = QFontDatabase.addApplicationFont(":/fonts/BYekan.ttf")
+        if id < 0: print("Error")  
+        families = QFontDatabase.applicationFontFamilies(id)
+        QApplication.instance().setFont(QFont(families[0]))
         self.setupUi(self)
         self.show()
         porttnavn = pyqtSignal(str)
@@ -123,7 +126,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                                         selection-color: red; \
                                         selection-background-color: rgb(244, 244, 244);}")
         
-        
+             
         self.round1Rbtn.setChecked(True)
         self.second = 0
         self.count = 0
