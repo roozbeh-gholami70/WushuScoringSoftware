@@ -934,10 +934,13 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         
         for idx, item in df.iterrows():
             tmp = {}
-            tmp["red"] = copy.deepcopy(item["قرمز"])
-            tmp["blue"] = copy.deepcopy(item["آبی"])
-            tmp["weight"] = copy.deepcopy(str(item["وزن"]))
-            self.matchData[str(item["شماره مسابقه"])] = copy.deepcopy(tmp)
+            tmp["red"] = copy.deepcopy(item.get("قرمز",""))
+            tmp["blue"] = copy.deepcopy(item.get("آبی", ""))
+            tmp["weight"] = copy.deepcopy(str(item.get("وزن", "")))
+            self.matchData[str(item.get("شماره مسابقه", ""))] = copy.deepcopy(tmp)
+        
+        if ("" in self.matchData.keys()):
+            QMessageBox.about(self, "خطا", "لطفا فایل با قالب مناسب بارگزاری کنید!")
         
         
 
