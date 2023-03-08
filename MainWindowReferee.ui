@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1316</width>
-    <height>873</height>
+    <height>885</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1300</width>
-    <height>873</height>
+    <height>885</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -1863,9 +1863,9 @@ QLabel {
              <property name="geometry">
               <rect>
                <x>3</x>
-               <y>130</y>
+               <y>120</y>
                <width>201</width>
-               <height>51</height>
+               <height>61</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1917,7 +1917,7 @@ QLabel {
             <widget class="QPushButton" name="endBtn">
              <property name="geometry">
               <rect>
-               <x>80</x>
+               <x>70</x>
                <y>230</y>
                <width>93</width>
                <height>41</height>
@@ -1949,7 +1949,7 @@ QLabel {
             <widget class="QPushButton" name="pushButton_3">
              <property name="geometry">
               <rect>
-               <x>80</x>
+               <x>70</x>
                <y>290</y>
                <width>93</width>
                <height>41</height>
@@ -2321,6 +2321,38 @@ QLabel {
               <number>59</number>
              </property>
             </widget>
+            <widget class="QPushButton" name="freeBtn">
+             <property name="geometry">
+              <rect>
+               <x>232</x>
+               <y>290</y>
+               <width>41</width>
+               <height>41</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(170, 170, 0);</string>
+             </property>
+             <property name="text">
+              <string>آزاد</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="lockBtn">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>290</y>
+               <width>41</width>
+               <height>41</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(170, 170, 0);</string>
+             </property>
+             <property name="text">
+              <string>قفل</string>
+             </property>
+            </widget>
             <zorder>frame_48</zorder>
             <zorder>endBtn</zorder>
             <zorder>pushButton_2</zorder>
@@ -2333,6 +2365,8 @@ QLabel {
             <zorder>spinBox_2</zorder>
             <zorder>spinBox_5</zorder>
             <zorder>spinBox_6</zorder>
+            <zorder>freeBtn</zorder>
+            <zorder>lockBtn</zorder>
            </widget>
           </item>
           <item>
@@ -2423,9 +2457,9 @@ p, li { white-space: pre-wrap; }
                   <height>261</height>
                  </rect>
                 </property>
-                <layout class="QGridLayout" name="gridTable" rowstretch="0,0,0,0,0,0" columnstretch="0,0,0,0,0,0,0,0,0">
-                 <item row="2" column="4">
-                  <widget class="QSpinBox" name="red3_1spinBox">
+                <layout class="QGridLayout" name="gridTable" rowstretch="0,0,0,0,0,0,0" columnstretch="0,0,0,0,0,0,0,0,0">
+                 <item row="5" column="4">
+                  <widget class="QSpinBox" name="red3_4spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2445,8 +2479,107 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="7">
-                  <widget class="QLabel" name="label_23">
+                 <item row="5" column="0">
+                  <widget class="QLabel" name="label_25">
+                   <property name="maximumSize">
+                    <size>
+                     <width>70</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>تذکر</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="7">
+                  <widget class="QSpinBox" name="blue2_4spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="6">
+                  <widget class="QSpinBox" name="blue1_4spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QSpinBox" name="red1_3spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="label_12">
+                   <property name="maximumSize">
+                    <size>
+                     <width>70</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>ناکدان</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QLabel" name="label_13">
                    <property name="maximumSize">
                     <size>
                      <width>50</width>
@@ -2466,8 +2599,426 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
+                 <item row="4" column="0">
+                  <widget class="QLabel" name="label_26">
+                   <property name="maximumSize">
+                    <size>
+                     <width>70</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>ناک اوت</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_11">
+                   <property name="maximumSize">
+                    <size>
+                     <width>70</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>اخطار</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="8">
+                  <widget class="QSpinBox" name="blue3_2spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="2" column="8">
                   <widget class="QSpinBox" name="blue3_1spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QLabel" name="label_28">
+                   <property name="maximumSize">
+                    <size>
+                     <width>70</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>خروج</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QSpinBox" name="red1_1spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="2">
+                  <widget class="QSpinBox" name="red1_2spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="6" colspan="3">
+                  <widget class="QLabel" name="label_9">
+                   <property name="maximumSize">
+                    <size>
+                     <width>200</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: white;
+background:rgb(0, 0, 255);
+border: 1px solid black;</string>
+                   </property>
+                   <property name="text">
+                    <string>آبی</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="7">
+                  <widget class="QSpinBox" name="blue2_2spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="6">
+                  <widget class="QLabel" name="label_21">
+                   <property name="maximumSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>1</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLabel" name="label_22">
+                   <property name="maximumSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>1</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="6">
+                  <widget class="QSpinBox" name="blue1_5spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="8">
+                  <widget class="QSpinBox" name="blue3_3spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="7">
+                  <widget class="QSpinBox" name="blue2_5spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="4">
+                  <widget class="QSpinBox" name="red3_3spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="2">
+                  <widget class="QSpinBox" name="red1_5spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="3">
+                  <widget class="QSpinBox" name="red2_4spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="2">
+                  <widget class="QSpinBox" name="red1_4spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="4">
+                  <widget class="QSpinBox" name="red3_2spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="3">
+                  <widget class="QSpinBox" name="red2_2spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="3">
+                  <widget class="QSpinBox" name="red2_3spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2513,168 +3064,6 @@ border: 1px solid black;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_12">
-                   <property name="maximumSize">
-                    <size>
-                     <width>70</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>ناکدان</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="6">
-                  <widget class="QLabel" name="label_21">
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_11">
-                   <property name="maximumSize">
-                    <size>
-                     <width>70</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>اخطار</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="4">
-                  <widget class="QLabel" name="label_17">
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>3</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="2">
-                  <widget class="QLabel" name="label_22">
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="7">
-                  <widget class="QSpinBox" name="blue2_1spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="3">
-                  <widget class="QLabel" name="label_13">
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>2</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="2">
-                  <widget class="QSpinBox" name="red1_2spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="2" column="6">
                   <widget class="QSpinBox" name="blue1_1spinBox">
                    <property name="maximumSize">
@@ -2696,8 +3085,8 @@ border: 1px solid black;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="3">
-                  <widget class="QSpinBox" name="red2_1spinBox">
+                 <item row="6" column="3">
+                  <widget class="QSpinBox" name="red2_5spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2717,8 +3106,8 @@ border: 1px solid black;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="2">
-                  <widget class="QSpinBox" name="red1_1spinBox">
+                 <item row="6" column="8">
+                  <widget class="QSpinBox" name="blue3_5spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2759,36 +3148,29 @@ border: 1px solid black;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="6" colspan="3">
-                  <widget class="QLabel" name="label_9">
+                 <item row="1" column="7">
+                  <widget class="QLabel" name="label_23">
                    <property name="maximumSize">
                     <size>
-                     <width>200</width>
+                     <width>50</width>
                      <height>30</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
-                     <pointsize>14</pointsize>
-                     <weight>50</weight>
-                     <bold>false</bold>
+                     <pointsize>10</pointsize>
                     </font>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: white;
-background:rgb(0, 0, 255);
-border: 1px solid black;</string>
-                   </property>
                    <property name="text">
-                    <string>آبی</string>
+                    <string>2</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="3">
-                  <widget class="QSpinBox" name="red2_2spinBox">
+                 <item row="2" column="3">
+                  <widget class="QSpinBox" name="red2_1spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2808,8 +3190,29 @@ border: 1px solid black;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="4">
-                  <widget class="QSpinBox" name="red3_2spinBox">
+                 <item row="6" column="4">
+                  <widget class="QSpinBox" name="red3_5spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="7">
+                  <widget class="QSpinBox" name="blue2_1spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -2850,260 +3253,8 @@ border: 1px solid black;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="7">
-                  <widget class="QSpinBox" name="blue2_2spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="8">
-                  <widget class="QSpinBox" name="blue3_2spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="2">
-                  <widget class="QSpinBox" name="red1_3spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="3">
-                  <widget class="QSpinBox" name="red2_3spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="4">
-                  <widget class="QSpinBox" name="red3_3spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="4" column="6">
                   <widget class="QSpinBox" name="blue1_3spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="7">
-                  <widget class="QSpinBox" name="blue2_3spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="8">
-                  <widget class="QSpinBox" name="blue3_3spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="2">
-                  <widget class="QSpinBox" name="red1_4spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="3">
-                  <widget class="QSpinBox" name="red2_4spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="4">
-                  <widget class="QSpinBox" name="red3_4spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="6">
-                  <widget class="QSpinBox" name="blue1_4spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>55</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>11</pointsize>
-                    </font>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                   <property name="keyboardTracking">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="7">
-                  <widget class="QSpinBox" name="blue2_4spinBox">
                    <property name="maximumSize">
                     <size>
                      <width>55</width>
@@ -3144,12 +3295,33 @@ border: 1px solid black;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0">
-                  <widget class="QLabel" name="label_26">
+                 <item row="4" column="7">
+                  <widget class="QSpinBox" name="blue2_3spinBox">
                    <property name="maximumSize">
                     <size>
-                     <width>70</width>
-                     <height>50</height>
+                     <width>55</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="4">
+                  <widget class="QLabel" name="label_17">
+                   <property name="maximumSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
                     </size>
                    </property>
                    <property name="font">
@@ -3158,34 +3330,40 @@ border: 1px solid black;</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>ناک اوت</string>
+                    <string>3</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="0">
-                  <widget class="QLabel" name="label_25">
+                 <item row="2" column="4">
+                  <widget class="QSpinBox" name="red3_1spinBox">
                    <property name="maximumSize">
                     <size>
-                     <width>70</width>
-                     <height>50</height>
+                     <width>55</width>
+                     <height>30</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
-                     <pointsize>10</pointsize>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
-                   <property name="text">
-                    <string>تذکر</string>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="5" rowspan="6">
-                  <widget class="Line" name="line">
+                 <item row="0" column="5" rowspan="7">
+                  <widget class="Line" name="line_2">
                    <property name="minimumSize">
                     <size>
                      <width>1</width>
-                     <height>20</height>
+                     <height>30</height>
                     </size>
                    </property>
                    <property name="font">
@@ -3225,7 +3403,7 @@ background-color:black;</string>
                   <widget class="QRadioButton" name="round3Rbtn">
                    <property name="font">
                     <font>
-                     <pointsize>10</pointsize>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="text">
@@ -3237,7 +3415,7 @@ background-color:black;</string>
                   <widget class="QRadioButton" name="round2Rbtn">
                    <property name="font">
                     <font>
-                     <pointsize>10</pointsize>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="text">
@@ -3249,7 +3427,7 @@ background-color:black;</string>
                   <widget class="QRadioButton" name="round1Rbtn">
                    <property name="font">
                     <font>
-                     <pointsize>10</pointsize>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="text">
@@ -3261,7 +3439,7 @@ background-color:black;</string>
                   <widget class="QLabel" name="label_19">
                    <property name="font">
                     <font>
-                     <pointsize>9</pointsize>
+                     <pointsize>10</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>

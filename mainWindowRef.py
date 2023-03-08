@@ -98,6 +98,9 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.sendBtn.clicked.connect(lambda:self.sendToArdo())
         # self.endBtn.clicked.connect(lambda:self.choose_music())
 
+        self.freeBtn.clicked.connect(lambda:self.sendToArdo(packet="944444"))
+        self.lockBtn.clicked.connect(lambda:self.sendToArdo(packet="999999"))
+
         self.uploadBtn.clicked.connect(lambda:self.uploadData())
 
         self.spinBox.valueChanged.connect(lambda:self.setTimer())
@@ -339,7 +342,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
     def makeDisableEnable(self):
         roundsSet = set(["1","2","3"])-set(str(self.roundNum))
-        for idx in range(4):
+        for idx in range(5):
             for randIdx in roundsSet:
                 myObj = eval("self.red"+str(randIdx)+"_"+str(idx+1) + "spinBox")
                 myObj.setEnabled(False)
@@ -702,9 +705,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         pass
         # playsound(r"C:\Users\HP\Desktop\end.mp3")    
         
-    # def colorbux(self):
-    #     if 
-    #     self.stackedWidget.setCurrentIndex(1)
+
     def openSecondWindow(self):
         if ("Main" in dir(self)):
             if (self.Main.isVisible()):
@@ -740,9 +741,11 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         # "x12x2x01x45:32:22"
         while self.serial.canReadLine():            
             self.text = self.serial.readLine().data().decode()
-            self.textSplit = self.text.split('x')[1:]
+            if (self.text[0]=="x"):
+                self.textSplit = self.text.split('x')[1:]
+                self.ardo()
             self.consoleTxt.setPlainText("received message:\n"+self.text+"\n")
-            self.ardo()
+            
 
     @QtCore.pyqtSlot()
     def on_toggled(self):
@@ -776,6 +779,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             self.portsCbx.setEnabled(True)
             self.connectBtn.setText("اتصال")
             self.sendBtn.setEnabled(False)
+            self._getserial_ports()
                     
     @QtCore.pyqtSlot()
     def sendToArdo(self, packet=""):
@@ -809,7 +813,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
     @QtCore.pyqtSlot()
     def ardo(self):
-        refIdx = int(self.textSplit[2])-1
+        refdic = {"5c:cf:7f:c9:1b:":1 , "48:3f:da:0f:92:":2, "8c:aa:b5:cf:bc:" :3, "68:c6:3a:f8:d0:":4}
+        refIdx = int(refdic[self.textSplit[2][1:16]])-1
         refRedLcd = redLcdList[refIdx]
         refBlueLcd = blueLcdList[refIdx]
         redPoint = int(self.textSplit[0])
@@ -1016,7 +1021,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             self.lcdNumber_3.display(v-1)
     def dn3r(self):
         v = self.lcdNumber_7.value()
-        self.lcdNumber_7.display(v-1)
+        if (v > 0):
+            self.lcdNumber_7.display(v-1)
     def dn4r(self):
         v = self.lcdNumber_9.value()
         if (v > 0):
