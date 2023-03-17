@@ -9,7 +9,7 @@ from PyQt5.QtMultimedia import QSound
 from playsound import playsound
 from PyQt5.QtCore import Qt
 from PyQt5.uic import loadUiType
-
+import winsound
 import resources_rc
 
 
@@ -55,6 +55,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         families = QFontDatabase.applicationFontFamilies(id)
         QApplication.instance().setFont(QFont(families[0]))
         self.setupUi(self)
+        self.player = QMediaPlayer()
         self.show()
         porttnavn = pyqtSignal(str)
         self._getserial_ports()
@@ -599,13 +600,13 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             self.mints = self.minutes
             if (self.mainTime==True):
                 if (self.minutes == 0):
-                    if ((self.count < 150) & (self.count > 0)):
+                    if ((self.count < 120) & (self.count > 10)):
                         if (self.count % 10 == 0):
                             self.secondsound()
                 self.updateTimer()
             elif (self.resetTime):
                 if (self.minutes == 0):
-                    if ((self.count < 100) & (self.count > 0)):
+                    if ((self.count < 170) & (self.count > 10)):
                         if (self.count % 10 == 0):
                             self.secondsound()
                 self.update_gui1()
@@ -698,12 +699,12 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
 
 
-    def secondsound(self):
-        pass
-        # playsound(r"C:\Users\HP\Desktop\time3.mp3")
+    def secondsound(self):       
+        full_file_path = os.path.join(os.getcwd(), 'time.wav')
+        winsound.PlaySound(full_file_path, winsound.SND_ASYNC)        
     def endtime(self):
-        pass
-        # playsound(r"C:\Users\HP\Desktop\end.mp3")    
+        full_file_path = os.path.join(os.getcwd(), 'end.wav')
+        winsound.PlaySound(full_file_path, winsound.SND_ASYNC)     
         
 
     def openSecondWindow(self):

@@ -3,6 +3,10 @@
     <file>MainWindowReferee.ui</file>
     <file>score.ui</file>
   </qresource>
+  <qresource prefix="sounds">
+    <file>end.wav</file>
+    <file>time.wav</file>
+  </qresource>
   <qresource prefix="fonts">
     <file>BYekan.ttf</file>
     <file>IranianSans.ttf</file>
