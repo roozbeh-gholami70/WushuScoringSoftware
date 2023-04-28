@@ -42,8 +42,8 @@ redLcdList = ["lcdNumber", "lcdNumber_3", "lcdNumber_7","lcdNumber_9", "lcdNumbe
 blueLcdList = ["lcdNumber_2", "lcdNumber_4", "lcdNumber_8", "lcdNumber_10", "lcdNumber_14"]
 colorDict = {"red":0, "blue":1, "white":2}
 
-tableFirstColList = ["داور1","داور2","داور3","داور4","داور5","اخطار","ناکدان", "ناک اوت","تذکر"]
-tableHeaderList = ["نام","راند","داور1","داور2","داور3","داور4","داور5","اخطار","ناکدان", "ناک اوت","تذکر"]
+tableFirstColList = ["داور1","داور2","داور3","داور4","داور5","اخطار","ناکدان", "ناک اوت","تذکر","خروج"]
+tableHeaderList = ["نام","راند","داور1","داور2","داور3","داور4","داور5","اخطار","ناکدان", "ناک اوت","تذکر","خروج"]
 alphabetList = list(string.ascii_uppercase)
 
 
@@ -59,7 +59,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.show()
         porttnavn = pyqtSignal(str)
         self._getserial_ports()
-
+        self.dfResult = pd.DataFrame()
         self.pushButton_5.clicked.connect(lambda:self.up1r())
         self.pushButton_9.clicked.connect(lambda:self.up2r())
         self.pushButton_22.clicked.connect(lambda:self.up3r())
@@ -153,12 +153,12 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                                                 baudRate=QtSerialPort.QSerialPort.Baud115200, 
                                                 readyRead=self.receive)
         self.refColor = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
-
+        
         self.redPlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
         self.bluePlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
 
-        self.redPlayerTablePoint = {"1":[0,0,0,0], "2":[0,0,0,0], "3":[0,0,0,0]}
-        self.bluePlayerTablePoint = {"1":[0,0,0,0], "2":[0,0,0,0], "3":[0,0,0,0]}
+        self.redPlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+        self.bluePlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
         # my part start
         self.setSpinBoxReadOnly()
         timer = QTimer(self)
@@ -166,7 +166,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         timer.timeout.connect(self.showTime)
 
         # update the timer every tenth second
-        timer.start(100)
+        timer.start(1000)
 
         # my part end
     
@@ -176,7 +176,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         
     def setSpinBoxReadOnly(self):
         for roundNum in range(1,4):
-            for idx in range(4):
+            for idx in range(5):
                 myObj = eval("self.red"+str(roundNum)+"_"+str(idx+1) + "spinBox")
                 myObj.lineEdit().setReadOnly(True)
 
@@ -324,7 +324,15 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             buttonReply = QMessageBox.question(self,msgBoxTopic ,msgBoxQuestion , QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
             if buttonReply == QMessageBox.Yes:
                 self.numOfMatches = int(numOfMatches)
-                self.myDataTable = ["0"]*int(numOfMatches)
+
+                self.myDataTable = list()
+                for idx in range(numOfMatches):
+                    tmp = {}
+                    tmp["redRefPoint"] = copy.deepcopy(self.redPlayerRefsPoint)
+                    tmp["redTablePoint"] = copy.deepcopy(self.redPlayerTablePoint)
+                    tmp["blueRefPoint"] = copy.deepcopy(self.bluePlayerRefsPoint)
+                    tmp["blueTablePoint"] = copy.deepcopy(self.bluePlayerTablePoint)
+                    self.myDataTable.append(copy.deepcopy(tmp))
                 
                 self.gameNumCbx.clear()
                 items  = list(range(1, int(numOfMatches)+1))
@@ -364,19 +372,28 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             self.makeDisableEnable()
             if ("Main" in dir(self)):
                 self.Main.roundNumLbl.setText(str(self.roundNum))
+            self.setRefLcd()
 
-            for idx, item in enumerate(redLcdList):
-                myObjRed = eval("self."+item)
-                myObjBlue = eval("self."+blueLcdList[idx])
-                myObjRed.display(self.redPlayerRefsPoint[str(self.roundNum)][idx])
-                myObjBlue.display(self.bluePlayerRefsPoint[str(self.roundNum)][idx])
 
-            for idx in range(4):
-                myObj = eval("self.red"+str(self.roundNum)+"_"+str(idx+1) + "spinBox")
-                myObj.setValue(int(self.redPlayerTablePoint[str(self.roundNum)][idx]))
+    def setRefLcd(self):
+        for idx, item in enumerate(redLcdList):
+            myObjRed = eval("self."+item)
+            myObjBlue = eval("self."+blueLcdList[idx])
+            myObjRed.display(self.redPlayerRefsPoint[str(self.roundNum)][idx])
+            myObjBlue.display(self.bluePlayerRefsPoint[str(self.roundNum)][idx])
 
-                myObj = eval("self.blue"+str(self.roundNum)+"_"+str(idx+1) + "spinBox")
-                myObj.setValue(int(self.bluePlayerTablePoint[str(self.roundNum)][idx]))  
+    def setTableVal(self):
+        for idx in range(5):
+            for round in range(1,4):
+                myObj = eval("self.red"+str(round)+"_"+str(idx+1) + "spinBox")
+                myObj.lineEdit().setReadOnly(False)
+                myObj.setValue(int(self.redPlayerTablePoint[str(round)][idx]))
+                myObj.lineEdit().setReadOnly(True)
+
+                myObj = eval("self.blue"+str(round)+"_"+str(idx+1) + "spinBox")
+                myObj.lineEdit().setReadOnly(False)
+                myObj.setValue(int(self.bluePlayerTablePoint[str(round)][idx]))
+                myObj.lineEdit().setReadOnly(True)
 
     def setPlayerName(self):
         isExcelUploaded = False
@@ -417,12 +434,24 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
            
     
     def setGameNum(self):
+        preGameNum = copy.deepcopy(self.gameNum)
+        self.calcPoints()
+        self.storeTableData()
         self.gameNum = self.gameNumCbx.currentText()
         try:
-            self.redPlayerData["matchNum"] = str(self.gameNum)
-            self.bluePlayerData["matchNum"] = str(self.gameNum)
-            
-        except:
+            self.myDataTable[int(preGameNum)-1]["redRefPoint"] = copy.deepcopy(self.redPlayerRefsPoint)
+            self.myDataTable[int(preGameNum)-1]["redTablePoint"] = copy.deepcopy(self.redPlayerTablePoint)
+            self.myDataTable[int(preGameNum)-1]["blueRefPoint"] = copy.deepcopy(self.bluePlayerRefsPoint)
+            self.myDataTable[int(preGameNum)-1]["blueTablePoint"] = copy.deepcopy(self.bluePlayerTablePoint)
+
+            self.redPlayerRefsPoint = copy.deepcopy(self.myDataTable[int(self.gameNum)-1]["redRefPoint"])
+            self.redPlayerTablePoint = copy.deepcopy(self.myDataTable[int(self.gameNum)-1]["redTablePoint"])
+            self.bluePlayerRefsPoint = copy.deepcopy(self.myDataTable[int(self.gameNum)-1]["blueRefPoint"])
+            self.bluePlayerTablePoint = copy.deepcopy(self.myDataTable[int(self.gameNum)-1]["blueTablePoint"])
+            self.setRefLcd()
+            self.setTableVal()
+        except Exception as ex:
+            print(ex)
             pass
         if ("Main" in dir(self)):
             self.Main.gameNumTxt.setHtml("<p align='center'>" + str(self.gameNum) + "</p>")
@@ -449,8 +478,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                 self.redPlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
                 self.bluePlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
 
-                self.redPlayerTablePoint = {"1":[0,0,0,0], "2":[0,0,0,0], "3":[0,0,0,0]}
-                self.bluePlayerTablePoint = {"1":[0,0,0,0], "2":[0,0,0,0], "3":[0,0,0,0]}
+                self.redPlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+                self.bluePlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
                 index = self.gameNumCbx.currentIndex()
                 self.gameNumCbx.model().item(index).setEnabled(False)
                 self.gameNumCbx.setCurrentIndex(index+1)
@@ -537,7 +566,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.pushButton_2.setEnabled(True)
         # changing the value of count
         self.secs = second * 10
-        self.count = second * 10 + 9
+        self.count = second # * 10 + 9
 
         
         self.mainTime = True
@@ -557,6 +586,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
     def showTime(self):
         self.setLcdColor()
         self.calcPoints()
+        self.storeTableData()
         # checking if flag is true
         if self.start:
             self.spinBox.setEnabled(False)
@@ -569,7 +599,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             if self.count == 0:
                 if (self.minutes > 0):
                     self.minutes -= 1
-                    self.count = 599
+                    self.count = 59
                 else:
                 # making flag false
                     self.endtime()
@@ -596,19 +626,19 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
         if self.start:
             # getting text from count
-            self.scnd = int(self.count/10)
+            self.scnd = int(self.count)#/10)
             self.mints = self.minutes
             if (self.mainTime==True):
                 if (self.minutes == 0):
-                    if ((self.count < 120) & (self.count > 10)):
-                        if (self.count % 10 == 0):
-                            self.secondsound()
+                    if ((self.count < 11) & (self.count > 1)):
+                        #if (self.count == 0):
+                        self.secondsound()
                 self.updateTimer()
             elif (self.resetTime):
                 if (self.minutes == 0):
-                    if ((self.count < 170) & (self.count > 10)):
-                        if (self.count % 10 == 0):
-                            self.secondsound()
+                    if ((self.count < 16) & (self.count > 1)):
+                        #if (self.count == 0):
+                        self.secondsound()
                 self.update_gui1()
 
     def restTimeFun(self):
@@ -617,7 +647,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         if ((second != 0) | (minute != 0)):
             self.restTime = True
             self.secs = second * 10
-            self.count = (second * 10) + 9
+            self.count = (second )#* 10) + 9
             self.minutes = minute
 
             self.start = True
@@ -855,6 +885,10 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         else:
             self.calcPoints()
             self.storeTableData()
+            self.myDataTable[int(self.gameNum)-1]["redRefPoint"] = copy.deepcopy(self.redPlayerRefsPoint)
+            self.myDataTable[int(self.gameNum)-1]["redTablePoint"] = copy.deepcopy(self.redPlayerTablePoint)
+            self.myDataTable[int(self.gameNum)-1]["blueRefPoint"] = copy.deepcopy(self.bluePlayerRefsPoint)
+            self.myDataTable[int(self.gameNum)-1]["blueTablePoint"] = copy.deepcopy(self.bluePlayerTablePoint)
             self.sendToArdo()
             if (self.redPoints > self.bluePoints):
                 myObj = eval("self.Main.stackedWidgetRed"+str(self.roundNum))
@@ -892,14 +926,15 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             child.display("0")
 
     def storeTableData(self):
-        for idx in range(4):
-            myObj = eval("self.red"+str(self.roundNum)+"_"+str(idx+1) + "spinBox")
-            self.redPlayerTablePoint[str(self.roundNum)][idx] =  int(myObj.value())
+        for idx in range(5):
+            for round in range(1,4):
+                myObj = eval("self.red"+str(round)+"_"+str(idx+1) + "spinBox")
+                self.redPlayerTablePoint[str(round)][idx] =  int(myObj.value())
 
-            myObj = eval("self.blue"+str(self.roundNum)+"_"+str(idx+1) + "spinBox")
-            self.bluePlayerTablePoint[str(self.roundNum)][idx] =  int(myObj.value())
+                myObj = eval("self.blue"+str(round)+"_"+str(idx+1) + "spinBox")
+                self.bluePlayerTablePoint[str(round)][idx] =  int(myObj.value())
 
-
+    
 
 
     def calcPoints(self):
@@ -910,6 +945,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             myObjBlue = eval("self."+blueLcdList[idx])
             self.redPlayerRefsPoint[str(self.roundNum)][idx] = int(myObjRed.value())
             self.bluePlayerRefsPoint[str(self.roundNum)][idx] = int(myObjBlue.value())
+            
             if (int(myObjRed.value()) > int(myObjBlue.value())):
                 self.redPoints += 1
             elif (int(myObjRed.value()) < int(myObjBlue.value())):
@@ -929,6 +965,16 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             self.openExcelPandas(path)
             self.gameNumCbx.clear()            
             self.gameNumCbx.addItems(map(str, self.matchData.keys()))
+            numOfMatches = len(self.matchData)
+            self.myDataTable = list()
+            for idx in range(numOfMatches):
+                tmp = {}
+                tmp["redRefPoint"] = copy.deepcopy(self.redPlayerRefsPoint)
+                tmp["redTablePoint"] = copy.deepcopy(self.redPlayerTablePoint)
+                tmp["blueRefPoint"] = copy.deepcopy(self.bluePlayerRefsPoint)
+                tmp["blueTablePoint"] = copy.deepcopy(self.bluePlayerTablePoint)
+                self.myDataTable.append(copy.deepcopy(tmp))
+            
             self.gameNum = self.gameNumCbx.currentText()
             self.setGameNum()
         else:
