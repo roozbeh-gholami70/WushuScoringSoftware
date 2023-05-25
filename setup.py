@@ -8,7 +8,7 @@ company_name = "AminCom"
 product_name = "Wushu Scoring Software"
 iconFile = "Wushu.ico"
 
-bdist_msi_options = {00
+bdist_msi_options = {
 "upgrade_code": "{ee0698ac-63dd-4555-8a80-2a49220e9a02}",
 "add_to_path": False,
 "initial_target_dir": r'[ProgramFiles64Folder]\\{}\\{}'.format(company_name, product_name),

@@ -2,6 +2,7 @@ import time
 import inspect
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QSplashScreen 
 from PyQt5 import QtCore, QtGui , QtSerialPort
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -1259,10 +1260,29 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         else:
             event.ignore()
 
-if __name__ == "__main__":
+def splashLoadingScreen():
+    splash_object = QSplashScreen(QtGui.QPixmap(":/png_files/Wushu.png"))
+    opaqueness = 0.05
+    step = 0.05
+    sleepTime = 0.05
+    splash_object.setWindowOpacity(opaqueness)
+    splash_object.show()
+    loadingTime = 4
+    for _ in range(loadingTime):
+        while ((opaqueness < 1) & (opaqueness > 0)):
+            splash_object.setWindowOpacity(opaqueness)
+            time.sleep(sleepTime) # Gradually appears
+            opaqueness+=step
+        step = (-1) * step
+        opaqueness+=step
+    time.sleep(1) # hold image on screen for a while
+    splash_object.close() # close the splash screen
 
+
+if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
+    splashLoadingScreen()
     Ui =  MainWindow()
     Ui.show()
     sys.exit(app.exec_())

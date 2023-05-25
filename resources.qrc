@@ -8,6 +8,9 @@
     <file>end.wav</file>
     <file>time.wav</file>
   </qresource>
+  <qresource prefix="png_files">
+    <file>Wushu.png</file>
+  </qresource>
   <qresource prefix="fonts">
     <file>BYekan.ttf</file>
     <file>IranianSans.ttf</file>
