@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="ui_files">
+    <file>timerDialog.ui</file>
     <file>MainWindowReferee.ui</file>
     <file>score.ui</file>
   </qresource>
