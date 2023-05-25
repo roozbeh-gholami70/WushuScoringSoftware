@@ -385,7 +385,11 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             buttonReply = QMessageBox.question(self,msgBoxTopic ,msgBoxQuestion , QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
             if buttonReply == QMessageBox.Yes:
                 self.numOfMatches = int(numOfMatches)
+                self.redPlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+                self.bluePlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
 
+                self.redPlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+                self.bluePlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
                 self.myDataTable = list()
                 for idx in range(int(numOfMatches)):
                     tmp = {}
@@ -400,6 +404,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                 self.gameNumCbx.addItems(map(str, items))
                 self.gameNum = self.gameNumCbx.currentText()
                 self.isMatchData = True
+                self.resetRefLcd()
                 self.setMatchResult()
             else:
                 self.getMatchSettings()
@@ -443,6 +448,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             myObjBlue = eval("self."+blueLcdList[idx])
             myObjRed.display(self.redPlayerRefsPoint[str(self.roundNum)][idx])
             myObjBlue.display(self.bluePlayerRefsPoint[str(self.roundNum)][idx])
+
 
     def setTableVal(self):
         for idx in range(5):
@@ -1093,6 +1099,11 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
     def loadCsvFile(self):
         path = self.getfile()
         if (path!=""):
+            self.redPlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+            self.bluePlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+
+            self.redPlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+            self.bluePlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
             self.loadingCsv = True
             self.openExcelPandas(path)
             self.gameNumCbx.clear()            
@@ -1108,6 +1119,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
                 self.myDataTable.append(copy.deepcopy(tmp))
             self.gameNum = self.gameNumCbx.currentText()
             self.isMatchData = True
+            self.resetRefLcd()
             self.setMatchResult()
         else:
             pass
