@@ -3443,6 +3443,26 @@ background-color:black;</string>
 }</string>
                 </property>
                </widget>
+               <widget class="QPushButton" name="gameResetBtn">
+                <property name="geometry">
+                 <rect>
+                  <x>490</x>
+                  <y>240</y>
+                  <width>101</width>
+                  <height>28</height>
+                 </rect>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton:hover:!pressed
+{
+	background-color:rgb(225, 225, 225);
+  border: 1px solid ;
+}</string>
+                </property>
+                <property name="text">
+                 <string>شروع مجدد</string>
+                </property>
+               </widget>
               </widget>
              </item>
             </layout>
@@ -3514,6 +3534,7 @@ QLabel:hover {
     <property name="title">
      <string>تنظیمات</string>
     </property>
+    <addaction name="controllerAction"/>
     <addaction name="timeAction"/>
     <addaction name="playerNameAction"/>
     <addaction name="uploadFileAction"/>
@@ -3551,6 +3572,11 @@ QLabel:hover {
   <action name="gameNumAction">
    <property name="text">
     <string>تعداد مسابقه</string>
+   </property>
+  </action>
+  <action name="controllerAction">
+   <property name="text">
+    <string>تنظیمات دسته</string>
    </property>
   </action>
  </widget>

@@ -52,6 +52,74 @@ class TimerDialog(QDialog, loadUiClass(':/ui_files/timerDialog.ui')):
         super().__init__(parent)
         self.setupUi(self)
 
+class ControllerDialog(QDialog, loadUiClass(':/ui_files/controllerDialog.ui')):
+    def __init__(self, serialConn, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.controllerIdxList = []
+        self.controllerMacList = []
+        for idx in range(1,6):
+            myObjCbx = eval("self.controlllerCbx_"+str(idx))
+            myObjCbx.clear()
+            myObjCbx.addItem("__")
+            self.controllerIdxList.append(None)
+            myObjCbx.setCurrentText("__")
+            items  = list(range(1, 6))
+            myObjCbx.addItems(map(str, items))
+        self.controlllerCbx_1.activated.connect(lambda:self.controlllerSelection(self.controlllerCbx_1))
+        self.controlllerCbx_2.activated.connect(lambda:self.controlllerSelection(self.controlllerCbx_2))
+        self.controlllerCbx_3.activated.connect(lambda:self.controlllerSelection(self.controlllerCbx_3))
+        self.controlllerCbx_4.activated.connect(lambda:self.controlllerSelection(self.controlllerCbx_4))
+        self.controlllerCbx_5.activated.connect(lambda:self.controlllerSelection(self.controlllerCbx_5))
+        
+
+        
+    def updateComboBoxes(self):
+        for idx in range(1,6):
+            if (self.controllerIdxList[idx-1]==None):
+                myObjCbx = eval("self.controlllerCbx_"+str(idx))
+                myObjCbx.clear()
+                myObjCbx.addItem("__")
+                myObjCbx.setCurrentText("__")
+                items = []
+                for tmp in range(1, 6):
+                    if tmp not in self.controllerIdxList:
+                        items.append(tmp)
+                myObjCbx.addItems(map(str, items))
+            else:
+                myObjCbx = eval("self.controlllerCbx_"+str(idx))
+                myObjCbx.clear()
+                items = []
+                items.append("__")
+                for tmp in range(1, 6):
+                    if tmp not in self.controllerIdxList:
+                        items.append(tmp)
+                items.append(self.controllerIdxList[idx-1])
+                myObjCbx.addItems(map(str, items))
+                myObjCbx.setCurrentText(str(self.controllerIdxList[idx-1]))
+
+    def controlllerSelection(self, myCbx):
+        myCbxIdx = int(myCbx.objectName()[-1])-1
+        if (myCbx.currentText().isdigit()):
+            self.controllerIdxList[myCbxIdx] = int(myCbx.currentText())
+            self.updateComboBoxes()
+        else:
+            self.controllerIdxList[myCbxIdx] = None
+            self.updateComboBoxes()
+
+        
+    
+    def getControllerVal(self, value):
+        if value[2] not in self.controllerMacList:
+            self.controllerMacList.append(value[2][1:16])
+            
+        idx = int(self.controllerMacList.index(value[2][1:16])) + 1
+        
+        myObjLbl = eval("self.red_"+str(idx))
+        myObjLbl.setText(value[0])
+        myObjLbl = eval("self.blue_"+str(idx))
+        myObjLbl.setText(value[1])
+
 
 class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
     def __init__(self):
@@ -93,6 +161,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         
         
         self.timeAction.triggered.connect(self.openTimerDialog)
+        self.controllerAction.triggered.connect(self.openControllerDialog)
 
         self.pushButton_3.setEnabled(False)
         self.endBtn.setEnabled(False)
@@ -117,7 +186,7 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
         self.weightTxt.textChanged.connect(lambda:self.setWeight())
         
-        
+        self.gameResetBtn.clicked.connect(self.resetGame)
         self.gameNumCbx.currentIndexChanged.connect(self.setGameNum)
         self.portsCbx.activated.connect(lambda:self.setPortName())
         
@@ -151,6 +220,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.portsCbx.setCurrentText("__")
         self.portsList = ["__"]
         self._getserial_ports()
+        
+        self.controlDialog = None
 
         self.isMatchData = False
         self.loadingCsv = False
@@ -181,6 +252,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         self.serial = QtSerialPort.QSerialPort(self.portName,
                                                 baudRate=QtSerialPort.QSerialPort.Baud115200, 
                                                 readyRead=self.receive)
+        self.refdic = {"5c:cf:7f:c9:1b:":1 , "48:3f:da:0f:92:":2, "8c:aa:b5:cf:bc:" :3,  "30:83:98:a6:5c:":4 , "5c:cf:7f:96:30:":5}
+
         self.refColor = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
         
         self.redPlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
@@ -201,7 +274,24 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
     
         self.minet = 0
         self.t =0
-        
+    
+    def openControllerDialog(self):
+        if self.serial.isOpen():
+            self.controlDialog = ControllerDialog(self.serial, self)
+            if (self.controlDialog.exec_()==QDialog.Accepted):
+                if (None not in self.controlDialog.controllerIdxList):
+                    self.sendToArdo(packet="922222")
+                    self.refdic = dict(map(lambda i,j : (i,j) , self.controlDialog.controllerMacList,self.controlDialog.controllerIdxList))
+                    QMessageBox.about(self, "اعلان", "تنظیمات با موفقیت انجام شد.")
+                    print(self.refdic)
+                else:
+                    QMessageBox.about(self, "اخطار", "لطفا تنظیمات را برای تمامی دسته ها انجام دهید.")
+            else:
+                print("Canceled")
+        else:
+            QMessageBox.about(self, "اخطار", "لطفا اتصال سریال را برقرار کنید.")
+
+
     def openTimerDialog(self):
         dialog = TimerDialog(self)
         if (dialog.exec_()==QDialog.Accepted):
@@ -513,7 +603,8 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
             changeGame = QtWidgets.QMessageBox.Yes
             self.loadingCsv = False
         if changeGame == QtWidgets.QMessageBox.Yes:
-            
+            self.redWinRand = [0, 0 , 0]
+            self.blueWinRand = [0, 0 , 0]
             self.calcPoints()
             self.storeTableData()
             new_index = self.gameNumCbx.currentIndex() 
@@ -900,13 +991,17 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
     @QtCore.pyqtSlot()
     def receive(self):
-        # "x12x2x01x45:32:22"
+        # "x12x2x05c:cf:7f:c9:1b:"
         while self.serial.canReadLine():            
             self.text = self.serial.readLine().data().decode()
             if (self.text[0]=="x"):
                 self.textSplit = self.text.split('x')[1:]
-                self.ardo()
+                if (self.controlDialog and self.controlDialog.isVisible()):
+                    self.controlDialog.getControllerVal(self.textSplit)
+                else:
+                    self.ardo()
             self.consoleTxt.setPlainText("received message:\n"+self.text+"\n")
+            
             
 
     @QtCore.pyqtSlot()
@@ -975,16 +1070,19 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
 
     @QtCore.pyqtSlot()
     def ardo(self):
-        refdic = {"5c:cf:7f:c9:1b:":1 , "48:3f:da:0f:92:":2, "8c:aa:b5:cf:bc:" :3, "68:c6:3a:f8:d0:":4}
-        refIdx = int(refdic[self.textSplit[2][1:16]])-1
-        refRedLcd = redLcdList[refIdx]
-        refBlueLcd = blueLcdList[refIdx]
-        redPoint = int(self.textSplit[0])
-        bluePoint = int(self.textSplit[1])
-        myObjRed = eval("self."+refRedLcd)
-        myObjBlue = eval("self."+refBlueLcd)
-        myObjRed.display(str(redPoint))
-        myObjBlue.display(str(bluePoint))
+        try:
+            refIdx = int(self.refdic[self.textSplit[2][1:16]])-1
+            refRedLcd = redLcdList[refIdx]
+            refBlueLcd = blueLcdList[refIdx]
+            redPoint = int(self.textSplit[0])
+            bluePoint = int(self.textSplit[1])
+            myObjRed = eval("self."+refRedLcd)
+            myObjBlue = eval("self."+refBlueLcd)
+            myObjRed.display(str(redPoint))
+            myObjBlue.display(str(bluePoint))
+        except Exception as ex:
+            print(ex)
+            QMessageBox.about(self, "خطا", "خطا در دریافت اطلاعات از دسته رخ داده است. تنظیمات دسته ها را بررسی کنید.")
 
         
 
@@ -1260,6 +1358,46 @@ class MainWindow (QMainWindow, loadUiClass(':/ui_files/MainWindowReferee.ui')):
         else:
             event.ignore()
 
+    def resetGame(self):
+        if (self.loadingCsv == False):
+            changeGame = QtWidgets.QMessageBox.question(self,
+                                            " شروع مجدد",
+                                            "آیا برای شروع مجدد اطمینان دارید؟",
+                                            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        else:
+            changeGame = QtWidgets.QMessageBox.Yes
+            self.loadingCsv = False
+        
+        
+        if changeGame == QtWidgets.QMessageBox.Yes:
+            if (self.gameNum == ""):
+                self.redWinRand = [0, 0 , 0]
+                self.blueWinRand = [0, 0 , 0]
+                self.redPlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+                self.bluePlayerRefsPoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+
+                self.redPlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+                self.bluePlayerTablePoint = {"1":[0,0,0,0,0], "2":[0,0,0,0,0], "3":[0,0,0,0,0]}
+                try:
+                    self.setRefLcd()
+                    self.setTableVal()
+                except Exception as ex:
+                    print("line {}: {}".format(str(inspect.currentframe().f_lineno),ex))
+                    pass
+                if ("Main" in dir(self)):
+                    self.Main.gameNumTxt.setHtml("<p align='center'>" + str(self.gameNum) + "</p>")
+                    self.setPlayerName()
+                    for tmpRoundNum in range(1,4):
+                        myObj = eval("self.Main.stackedWidgetBlue"+str(tmpRoundNum))
+                        myObj.setCurrentIndex(0)
+                        myObj = eval("self.Main.stackedWidgetRed"+str(tmpRoundNum))
+                        myObj.setCurrentIndex(0)
+                    self.Main.winnerStackedWidget.setCurrentIndex(1)
+                    self.winnerStackedWidget.setCurrentIndex(1)
+
+
+
+
 def splashLoadingScreen():
     splash_object = QSplashScreen(QtGui.QPixmap(":/png_files/Wushu.png"))
     opaqueness = 0.05
@@ -1282,7 +1420,7 @@ def splashLoadingScreen():
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
-    splashLoadingScreen()
+    # splashLoadingScreen()
     Ui =  MainWindow()
     Ui.show()
     sys.exit(app.exec_())
